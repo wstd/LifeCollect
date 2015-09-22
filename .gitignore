@@ -1,0 +1,24 @@
+*.csproj
+*.sln
+.vs
+*.unityproj
+*.booproj
+*.pidb
+*.userprefs
+obj
+Library
+Temp
+Builds
+.DS_Store
+desktop.ini
+desktop.ini.meta
+
+*.suo
+*.user
+
+# UnityVS plugin
+Assets/UnityVS*
+*.DotSettings
+
+#plugins
+Application/Assets/Editor/PostprocessBuildPlayer
