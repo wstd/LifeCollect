@@ -1,37 +1,33 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[ExecuteInEditMode]
 public class MeshNoiser : MonoBehaviour
 {
-
+	public bool NoiseNow = false;
+	public float NoiseAmount = .2f;
 	private Mesh mesh;
-
-	// Use this for initialization
-	void Start ()
-	{
-		//StartCoroutine(Renoise());
-	}
 
 	private void Update()
 	{
-		transform.Rotate(Vector3.up);
+		if (NoiseNow)
+		{
+			Renoise();
+			NoiseNow = false;
+		}
 	}
 	
-	private IEnumerator Renoise()
+	private void Renoise()
 	{
-		while (true)
+		mesh = GetComponent<MeshFilter>().mesh;
+		Vector3[] vertices = mesh.vertices;
+		int p = 0;
+		while (p < vertices.Length)
 		{
-			mesh = GetComponent<MeshFilter>().mesh;
-			Vector3[] vertices = mesh.vertices;
-			int p = 0;
-			while (p < vertices.Length)
-			{
-				vertices[p].y = Random.Range(-.3f, .3f);
-				p++;
-			}
-			mesh.vertices = vertices;
-			mesh.RecalculateNormals();
-			yield return new WaitForSeconds(Random.Range(.05f, .3f));
+			vertices[p].y = Random.Range(-NoiseAmount/2, NoiseAmount/2);
+			p++;
 		}
+		mesh.vertices = vertices;
+		mesh.RecalculateNormals();
 	}
 }
